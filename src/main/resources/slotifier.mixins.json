@@ -4,9 +4,8 @@
   "package": "crec.slotifier.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-  ],
-  "client": [
-    "SlotifierMixin"
+    "MixinItemEntity",
+    "MixinMouseInputHandler"
   ],
   "injectors": {
     "defaultRequire": 1
