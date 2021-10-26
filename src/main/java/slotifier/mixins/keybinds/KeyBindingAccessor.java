@@ -1,4 +1,4 @@
-package slotifier.mixins;
+package slotifier.mixins.keybinds;
 
 import net.minecraft.client.option.KeyBinding;
 import org.spongepowered.asm.mixin.Mixin;
@@ -10,6 +10,6 @@ import java.util.Map;
 public interface KeyBindingAccessor {
     @Accessor("categoryOrderMap")
     static Map<String, Integer> slotifier_getCategoryOrderMap() {
-        throw new AssertionError("Invoked what shouldn't be invoked");
+        throw new AssertionError("Mixin borked");
     }
 }

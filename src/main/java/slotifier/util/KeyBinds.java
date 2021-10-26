@@ -1,7 +1,7 @@
-package slotifier.keyboard;
+package slotifier.util;
 
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.screen.slot.Slot;
+import net.minecraft.entity.player.PlayerEntity;
 import org.lwjgl.glfw.GLFW;
 import slotifier.Slotifier;
 
@@ -10,15 +10,15 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public enum KeyBinds {
-    SAVE(new KeyBinding("Save inventory state", GLFW.GLFW_KEY_K, "Slotifier"), Slotifier::saveInventory), CLEAR(new KeyBinding("Clear inventory state", GLFW.GLFW_KEY_L, "Slotifier"),
-            Slotifier::clearCache);
+    SAVE(new KeyBinding("Save inventory state", GLFW.GLFW_KEY_K, "Slotifier"), Slotifier::saveInventory),
+    CLEAR(new KeyBinding("Clear inventory state", GLFW.GLFW_KEY_L, "Slotifier"), Slotifier::clearCache);
 
     private final KeyBinding keyBinding;
-    private final Consumer<List<Slot>> inventoryConsumer;
+    private final Consumer<PlayerEntity> consumer;
 
-    KeyBinds(KeyBinding keyBinding, Consumer<List<Slot>> inventoryConsumer) {
+    KeyBinds(KeyBinding keyBinding, Consumer<PlayerEntity> consumer) {
         this.keyBinding = keyBinding;
-        this.inventoryConsumer = inventoryConsumer;
+        this.consumer = consumer;
     }
 
     public static List<KeyBinds> getSlotifierKeyBinds() {
@@ -33,8 +33,7 @@ public enum KeyBinds {
         return keyBinding;
     }
 
-    public void execute(List<Slot> slots) {
-        Slotifier.LOGGER.info("Execute");
-        this.inventoryConsumer.accept(slots);
+    public void execute(PlayerEntity player) {
+        this.consumer.accept(player);
     }
 }

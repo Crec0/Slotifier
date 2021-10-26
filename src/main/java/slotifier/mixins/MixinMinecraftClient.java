@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import slotifier.Slotifier;
-import slotifier.keyboard.KeyBinds;
+import slotifier.util.KeyBinds;
 import slotifier.util.InventoryUtils;
 
 @Mixin(MinecraftClient.class)
@@ -20,23 +20,24 @@ public class MixinMinecraftClient {
     public ClientPlayerEntity player;
 
     @Inject(method = "handleInputEvents", at = @At("TAIL"))
-    private void postInputEventHandling(CallbackInfo ci) {
-        if (this.player == null) {
-            return;
-        }
+    private void keyPressHandler(CallbackInfo ci) {
+        if (this.player == null) return;
         KeyBinds.getSlotifierKeyBinds().forEach(keybind -> {
             KeyBinding binding = keybind.getKeyBinding();
             if (!binding.isUnbound() && binding.isPressed()) {
-                keybind.execute(this.player.currentScreenHandler.slots);
+                keybind.execute(this.player);
             }
         });
     }
 
     @Inject(method = "tick", at = @At("HEAD"))
-    private void preTick(CallbackInfo ci) {
+    private void onTick(CallbackInfo ci) {
         Slotifier.tickCounter++;
-        if (Slotifier.lastTickWithSlotPackets != -1 && Slotifier.lastTickWithSlotPackets < Slotifier.tickCounter) {
-            InventoryUtils.sortInventory();
+        if (Slotifier.lastTickWithSlotPackets != -1 &&
+            Slotifier.lastTickWithSlotPackets < Slotifier.tickCounter
+        ) {
+            Slotifier.lastTickWithSlotPackets = -1;
+            InventoryUtils.reorderInventory();
         }
     }
 }

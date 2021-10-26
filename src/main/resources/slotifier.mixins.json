@@ -4,9 +4,9 @@
   "package": "slotifier.mixins",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "KeyBindingAccessor",
+    "keybinds.KeyBindingAccessor",
     "MixinClientPlayNetworkHandler",
-    "MixinGameOptions",
+    "keybinds.MixinGameOptions",
     "MixinMinecraftClient"
   ],
   "injectors": {

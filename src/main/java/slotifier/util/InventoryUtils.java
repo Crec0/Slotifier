@@ -3,6 +3,7 @@ package slotifier.util;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.AirBlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
@@ -15,26 +16,26 @@ public class InventoryUtils {
     public static void dropSlot(int syncId, int slotId, PlayerEntity player, ClientPlayerInteractionManager interactionManager) {
         interactionManager.clickSlot(syncId, slotId, 1, SlotActionType.THROW, player);
     }
-
+    /*
+     * Swap offhand and fromSlot
+     * Swap offhand and toSlot (item from fromSlot is now in toSlot)
+     * Swap offhand with fromSlot to retrieve original item in offhand
+     */
     public static void swapSlots(int syncId, int fromSlot, int toSlot, PlayerEntity player, ClientPlayerInteractionManager interactionManager) {
         interactionManager.clickSlot(syncId, fromSlot, 40, SlotActionType.SWAP, player);
-        interactionManager.clickSlot(syncId, toSlot, 40, SlotActionType.SWAP, player);
+        interactionManager.clickSlot(syncId,   toSlot, 40, SlotActionType.SWAP, player);
         interactionManager.clickSlot(syncId, fromSlot, 40, SlotActionType.SWAP, player);
     }
 
-    public static void sortInventory() {
-        Slotifier.lastTickWithSlotPackets = -1;
-
+    public static void reorderInventory() {
         ReservedInventory reservedInventory = Slotifier.reservedInventory;
         if (!reservedInventory.isActive()) return;
-        Slotifier.LOGGER.info("Inventory Active");
 
         MinecraftClient mc = MinecraftClient.getInstance();
 
         ClientPlayerInteractionManager interactionManager = mc.interactionManager;
         PlayerEntity player = mc.player;
         if (interactionManager == null || player == null) return;
-        Slotifier.LOGGER.info("Manager player not null");
 
         ScreenHandler screenHandler = mc.player.playerScreenHandler;
 
@@ -45,13 +46,11 @@ public class InventoryUtils {
             Item stackItem = itemStack.getItem();
             int syncId = screenHandler.syncId;
 
-            if (!reservedInventory.isCorrectSlot(stackItem, currentSlot.id)) {
-                Slot toSlot = reservedInventory.getNextAvailableSlot(player, stackItem);
+            if (!(stackItem instanceof AirBlockItem) && !reservedInventory.isCorrectSlot(stackItem, currentSlot.id)) {
+                Slot toSlot = reservedInventory.getNextAvailableSlot(stackItem, screenHandler.slots);
                 if (toSlot != null && toSlot.id != currentSlot.id) {
-                    Slotifier.LOGGER.info("SWAP SWAP -> from: {}, to: {}, Item: {}", currentSlot.id, toSlot.id, itemStack);
                     InventoryUtils.swapSlots(syncId, currentSlot.id, toSlot.id, player, interactionManager);
                 } else {
-                    Slotifier.LOGGER.info("YEET -> Slot: {}, Item: {}", currentSlot.id, itemStack);
                     InventoryUtils.dropSlot(syncId, currentSlot.id, player, interactionManager);
                 }
             }

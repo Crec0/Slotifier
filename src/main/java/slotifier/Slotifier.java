@@ -1,12 +1,11 @@
 package slotifier;
 
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.screen.slot.Slot;
+import net.minecraft.entity.player.PlayerEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import slotifier.util.MessengerUtils;
 import slotifier.util.ReservedInventory;
-
-import java.util.List;
 
 public class Slotifier implements ModInitializer {
 
@@ -15,13 +14,13 @@ public class Slotifier implements ModInitializer {
     public static int tickCounter = 0;
     public static int lastTickWithSlotPackets = -1;
 
-    public static void saveInventory(List<Slot> slots) {
-        LOGGER.info("Saved Current Inventory");
-        reservedInventory.save(slots);
+    public static void saveInventory(PlayerEntity player) {
+        MessengerUtils.sendActionBarMessage(player, "Saved current player inventory state");
+        reservedInventory.save(player.playerScreenHandler.slots);
     }
 
-    public static void clearCache(List<Slot> ignored) {
-        LOGGER.info("Cleared saved inventory");
+    public static void clearCache(PlayerEntity player) {
+        MessengerUtils.sendActionBarMessage(player, "Cleared saved player inventory state");
         reservedInventory.clear();
     }
 

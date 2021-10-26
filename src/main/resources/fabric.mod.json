@@ -26,10 +26,7 @@
 
   "depends": {
     "fabricloader": ">=0.11.7",
-    "minecraft": "1.16.x",
+    "minecraft": "1.16.5",
     "java": ">=16"
-  },
-  "suggests": {
-    "another-mod": "*"
   }
 }
