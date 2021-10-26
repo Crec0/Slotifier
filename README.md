@@ -16,7 +16,7 @@ To use this mod you have to set the hotkey for it. You can find the settings in 
 - Used to clear the current saved inventory state
 
 ## How to get
-- Download the mod from [releases page]() or [modrinth]() or [curseforge]()  
+- Download the mod from [releases page](https://github.com/Crec0/Slotifier/releases) or [modrinth](https://modrinth.com/mod/slotifier) or [curseforge](https://www.curseforge.com/minecraft/mc-mods/slotifier)  
 - Requires minecraft 1.16.5 (available) or 1.17.1 (coming soon)
 - Requires fabric loader 0.11.7 or above
 - Requires Java 16 or above
