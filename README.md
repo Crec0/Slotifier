@@ -1,5 +1,5 @@
 # Slotifier
-A simple slot reservation mod. Reserver slots in the player inventory and never worry about picking wrong items and sorting them all over again.
+A simple slot reservation mod. Reserve slots in the player inventory and never worry about picking wrong items and sorting them all over again.
 
 Simply customize your inventory in whatever way you want and hit the save key. Afterwards you can empty your inventory and go to the mining adventure without worrying about picking up rotten flesh, bones, seeds and other garbage.
 
