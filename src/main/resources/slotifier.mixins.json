@@ -1,11 +1,13 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "crec.slotifier.mixin",
+  "package": "slotifier.mixins",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "MixinItemEntity",
-    "MixinMouseInputHandler"
+    "KeyBindingAccessor",
+    "MixinClientPlayNetworkHandler",
+    "MixinGameOptions",
+    "MixinMinecraftClient"
   ],
   "injectors": {
     "defaultRequire": 1
