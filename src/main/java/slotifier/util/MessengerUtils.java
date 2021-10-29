@@ -14,8 +14,4 @@ public class MessengerUtils {
     public static void sendActionBarMessage(PlayerEntity player, String message) {
         player.sendMessage(coloredText(message, Formatting.GREEN), true);
     }
-
-    public static void sendChatMessage(PlayerEntity player, String message) {
-        player.sendMessage(coloredText(message, Formatting.YELLOW), false);
-    }
 }

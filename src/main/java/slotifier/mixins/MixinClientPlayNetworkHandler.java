@@ -12,6 +12,8 @@ import slotifier.Slotifier;
 public abstract class MixinClientPlayNetworkHandler {
     @Inject(method = "onScreenHandlerSlotUpdate", at = @At("HEAD"))
     public void onUpdatePacketReceived(ScreenHandlerSlotUpdateS2CPacket packet, CallbackInfo ci) {
-        Slotifier.lastTickWithSlotPackets = Slotifier.tickCounter;
+        if (Slotifier.isEnabled()) {
+            Slotifier.lastTickWithSlotPackets = Slotifier.tickCounter;
+        }
     }
 }

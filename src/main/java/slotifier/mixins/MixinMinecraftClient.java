@@ -33,7 +33,7 @@ public class MixinMinecraftClient {
     @Inject(method = "tick", at = @At("HEAD"))
     private void onTick(CallbackInfo ci) {
         Slotifier.tickCounter++;
-        if (Slotifier.lastTickWithSlotPackets != -1 &&
+        if (Slotifier.lastTickWithSlotPackets != -1                &&
             Slotifier.lastTickWithSlotPackets < Slotifier.tickCounter
         ) {
             Slotifier.lastTickWithSlotPackets = -1;

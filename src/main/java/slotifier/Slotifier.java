@@ -24,6 +24,10 @@ public class Slotifier implements ModInitializer {
         reservedInventory.clear();
     }
 
+    public static boolean isEnabled() {
+        return reservedInventory.isActive();
+    }
+
     @Override
     public void onInitialize() {
         LOGGER.info("Slotifier initialized");
